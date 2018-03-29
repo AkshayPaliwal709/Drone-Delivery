@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @drone.status %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @drone.name %>
+</p>
+
+<%= link_to 'Edit', edit_drone_path(@drone) %> |
+<%= link_to 'Back', orderdetails_path %>

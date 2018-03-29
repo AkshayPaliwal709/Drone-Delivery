@@ -1,0 +1,42 @@
+<%= form_with(model: orderdetail, local: true) do |form| %>
+  <% if orderdetail.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(orderdetail.errors.count, "error") %> prohibited this orderdetail from being saved:</h2>
+
+      <ul>
+      <% orderdetail.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ <!-- <div class="field">
+    <%= form.label :order_id %>
+    <%= form.text_field :order_id, id: :orderdetail_order_id %>
+  </div> 
+
+  <div class="field">
+    <%= form.label :product_id %>
+    <%= form.text_field :product_id, id: :orderdetail_product_id %>
+  </div>  -->
+  
+  <div class="field">
+  <%= form.select :product_id, Product.all.collect {|p| [ p.name, p.id] }, { :include_blank => "Please select a product" }, id: :orderdetail_product_id %>
+  </div>
+
+  <div class="field">
+  <%= form.select :person_id, Person.all.collect {|p| [ p.name, p.id] }, { :include_blank => "Registered User" }, id: :orderdetail_person_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantity %>
+    <%= form.number_field :quantity, id: :orderdetail_quantity %>
+  </div> 
+
+  <div class="actions">
+    <%= form.submit %>
+
+  </div>
+<% end %>
+ 

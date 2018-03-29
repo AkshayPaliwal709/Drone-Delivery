@@ -1,0 +1,26 @@
+<%= form_with(model: drone, local: true) do |form| %>
+  <% if drone.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(drone.errors.count, "error") %> prohibited this drone from being saved:</h2>
+
+      <ul>
+      <% drone.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.hidden_field :status, :value => 1 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :drone_name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

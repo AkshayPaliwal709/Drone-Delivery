@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  drone: one
+  person: one
+  status: 1
+
+two:
+  drone: two
+  person: two
+  status: 1

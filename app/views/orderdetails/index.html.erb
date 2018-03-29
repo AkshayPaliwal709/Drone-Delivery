@@ -1,0 +1,209 @@
+<html>
+<p id="notice"><%= notice %></p>
+
+<body class="wrapper" onload="polling()">
+
+  <font size="7" color="SeaGreen" align="center">Order/Drone Assignment Portal</font>
+  <br><br><br><br>
+
+  <font size="6" color="teal">Orderdetails</font>
+  
+        <table class="table">
+          <thead>
+              <tr class="row header green">
+                  
+                  <th class="cell">Customer</th>
+                  <th class="cell">Product</th>
+                  <th class="cell">Quantity</th>
+                  <th class="cell">Status</th>
+                  <th class="cell">Drone</th>
+                  <th class="cell" colspan="3"></th>
+                
+                </tr>
+            
+          </thead>
+
+          <tbody>
+            <% @orderdetails.each do |orderdetail| %>
+              <tr class="row">
+                <td class="cell"><%= orderdetail.order.person.name %></td>
+                <td class="cell"><%= orderdetail.product.name %></td>
+                <td class="cell"><%= orderdetail.quantity %></td>
+                <td class="cell"><%= 
+                case orderdetail.order.status  
+                  when 1
+                     "Order Placed"
+                  when 2
+                     "Dispatched/In Transit"
+                  when 3
+                     "Delivered"
+                  else
+                    "Unknown Status"
+                    end%></td>
+                <td class="cell"><%= orderdetail.order.drone.name %></td>
+                <td class="cell"><%= link_to 'Show', orderdetail %></td>
+                <td class="cell"><%= link_to 'Edit', edit_orderdetail_path(orderdetail) %></td>
+                <td class="cell"><%= link_to 'Destroy', orderdetail, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <br>
+    
+       <%= link_to 'Place a new Order by clicking here', new_orderdetail_path %>
+
+        <br/>
+        <br/>
+        <font size="6" color="teal">Drones</font>
+
+        <table class="table">
+          <thead>
+            <tr class="row header green">
+              <th class="cell">Status</th>
+              <th class="cell">Name</th>
+              <th class="cell" colspan="4"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @drones.each do |drone| %>
+              <tr class="row">
+                <td class="cell">
+                  <%= if drone.name != "No Drone Assigned"
+                        
+                      case drone.status 
+                      when 1
+                         "Idle"
+                      when 2
+                         "Assigned"
+                      when 3
+                         "Picked up enroute"
+                      when 4
+                         "Reached"
+                      when 5
+                         "Delivered"
+                      when 6
+                         "Way Back"
+                      when 7
+                         "Reached Hub"
+                      else
+                        "Unknown Status"
+                      end
+                end%></td>
+                <td class="cell">
+                  <%= if drone.name != "No Drone Assigned"
+                      drone.name
+                     end%>
+                  </td>
+                <td class="cell">
+                  <%= if drone.name != "No Drone Assigned"
+                      link_to 'Show', drone
+                   end%></td>
+                <td class="cell">
+                  <%= if drone.name != "No Drone Assigned" 
+                      link_to 'Edit', edit_drone_path(drone) 
+                      end%></td>
+                <td class="cell">
+                  <%= if drone.name != "No Drone Assigned"  
+                  link_to 'Destroy', drone, method: :delete, data: { confirm: 'Are you sure?' } 
+                  end%></td>
+                  <td class="cell"><%= if drone.name != "No Drone Assigned"
+
+                    button_to "Assign Drone", "/assignDrone/#{drone.id}" , method: :get 
+                   
+                    end%></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      
+
+        <br>
+
+
+        <%= link_to 'A new drone can be added from here', new_drone_path %>
+
+        <script>
+        function polling() {
+            //alert("Page is loaded");
+            sleep(8050)
+             //alert("Page is loadedafter sleep");
+            window.location.reload(true);
+        }
+        function sleep(milliseconds) {
+          var start = new Date().getTime();
+          for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds){
+              break;
+            }
+          }
+        }
+        </script>
+
+      </br>
+    </br>
+
+        <font size="6" color="teal">Customer Registration</font>
+
+   
+        <table class="table">
+          <thead>
+            <tr class="row header green">
+              <th class="cell">Name</th>
+              <th class="cell">Phonenumber</th>
+              <th class="cell">Address</th>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @people.each do |person| %>
+              <tr class="row">
+                <td class="cell"><%= person.name %></td>
+                <td class="cell"><%= person.phonenumber %></td>
+                <td class="cell"><%= person.address %></td>
+                <td class="cell"><%= link_to 'Show', person %></td>
+                <td class="cell"><%= link_to 'Edit', edit_person_path(person) %></td>
+                <td class="cell"><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <br>
+    
+        <%= link_to 'New Person Registration link', new_person_path %>
+        <br/>
+        <br/>
+
+        <font size="6" color="teal">Products(To be added by the store employee)</font>
+   
+        <table class="table">
+          <thead>
+            <tr class="row header green">
+              <th class="cell">Name</th>
+              <th class="cell">Category</th>
+              <th class="cell" colspan="3"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @products.each do |product| %>
+              <tr class="row">
+                <td class="cell"><%= product.name %></td>
+                <td class="cell"><%= product.category %></td>
+                <td class="cell"><%= link_to 'Show', product %></td>
+                <td class="cell"><%= link_to 'Edit', edit_product_path(product) %></td>
+                <td class="cell"><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+    
+        <br>
+
+        <%= link_to 'A New Product can be added here', new_product_path %>
+</body>
+</html>
+

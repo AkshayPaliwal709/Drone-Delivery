@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Drone:</strong>
+  <%= @order.drone.name %>
+</p>
+
+<p>
+  <strong>Person:</strong>
+  <%= @order.person.name %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @order.status   
+          case @order.status 
+          when 1
+             "Order Placed"
+          when 2
+             "Dispatched/In Transit"
+          when 3
+             "Delivered"
+          else
+            "Unknown Status"
+        end%>
+</p>
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>
