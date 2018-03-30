@@ -1,29 +1,18 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Drone Delevery Application :
+-> The command center sends an instruction to the drone to pickup an item from the warehouse (only one at present).
 
-Things you may want to cover:
+-> The drone picks up the item from a designated spot (one spot only at this moment) and lifts off to the delivery address.
 
-* Ruby version
+-> After it reaches the delivery address, the drone sends an instruction back to the command center that it has reached.
 
-* System dependencies
+->The drone unloads the item and sends an instruction back to the command center that it has unloaded the item.
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+-> It comes back to the warehouse, reaches its parking spot, and lets the command center know that it is ready for next instruction.
 
 •	Instructions to use the application:
+
 1.	Run bundle install on the project 
 2.	Check if rails is up and running then run rails ‘db:seed’  command
 3.	Run the URL : http://localhost:3000/orderdetails
@@ -45,11 +34,11 @@ Following the same the drone will be on it’s way back and be idle again indica
 For now, we are just using a sleep method inside the thread to give a delay in the status change.
 
 Drone status : 
-1."Idle" : can be assigned :
-2 "Assigned" : assigned an order
+1."Idle" 
+2 "Assigned"  
 3 "Picked up enroute" : order status also changed to enroute along with dron’es status
-                          4 "Reached"
-5 "Delivered": order status also changes
+4 "Reached"
+5 "Delivered": order status also changes to delivered
 6 "Way Back"
 7"Reached Hub"
 
